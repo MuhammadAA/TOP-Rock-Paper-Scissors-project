@@ -62,47 +62,47 @@ function playRound (playerSelection, computerSelection) {
 
 
 
-// Loops through the playRound function 5 times and keeps track of the number of times the computer or player wins and announces overall winner in the end
-function game() {
-    let computerWinCounter = 0;
-    let playerWinCounter = 0;
-
-    for (let i = 0; i < 5; i++){
-        playerSelection = prompt("Enter your pick: ");
-        computerSelection = computerPlay();
-        
-
-        // Splitting multiple returns from playRound function
-        overall = playRound(playerSelection,computerSelection);
-        outcome = overall[0];
-        playerWins = overall[1] 
-
-        // Tells player who won the round
-        alert(outcome);
-
-        // Updates count for the winner of the round
-        if (playerWins == false && outcome != "Draw!"){
-            computerWinCounter += 1;
-        }
-        else if (playerWins == true) {
-            playerWinCounter += 1;
-        }
-    }
-
-    // Alerts in browser the winner from the total of 5 matches
-    console.log("computer: " + computerWinCounter)
-    console.log("player: " + playerWinCounter)
-    if (computerWinCounter == playerWinCounter) {
-        alert("Draw!")
-    }
-    else if (computerWinCounter > playerWinCounter) {
-        alert("Computer Wins!")
-    }
-    else {
-        alert("Player Wins!")
-    }
-}
 
 
-// Running the game
-game();
+
+
+// Div to display results
+const resultView = document.querySelector("#results");
+resultView.style.backgroundColor = "pink";
+resultView.style.width = "50%";
+resultView.style.height = "100%";
+
+
+
+const result = document.querySelector("#resTx");
+result.style.color = "black";
+result.style.textAlign = "center";
+
+
+
+// Button to choose rock as an option
+const rock = document.querySelector("#rock");
+rock.addEventListener('click', function () {
+    overall = playRound("rock",computerPlay());
+    //alert(overall[0]);
+    result.textContent = overall[0];
+});
+
+// Button to choose paper as an option
+const paper = document.querySelector("#paper");
+paper.addEventListener('click', function() {
+    overall = playRound("paper",computerPlay());
+    //alert(overall[0]);
+    result.textContent = overall[0];
+});
+
+// Button to choose scissors as an option
+const scissors = document.querySelector("#scissors");
+scissors.addEventListener('click', function () {
+    overall = playRound("scissors",computerPlay());
+    //alert(overall[0]);
+    result.textContent = overall[0];
+});
+
+
+resultView.appendChild(result);
