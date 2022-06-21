@@ -22,13 +22,14 @@ function playRound (playerSelection, computerSelection) {
     // Ensures casing doesnt become an issue 
     playerSelection = playerSelection.toLowerCase();
     computerSelection = computerSelection.toLowerCase();
-    playerWins = false;
-
+    plyrWins = false;
+    draw = false;
     let outcome;
         
     // Draw Situation
     if (playerSelection == computerSelection) {
         outcome = "Draw!";
+        draw = true;
     }
     
     // Computer Wins Situations
@@ -45,38 +46,54 @@ function playRound (playerSelection, computerSelection) {
     // Player Wins Situations
     else if (computerSelection == "rock" && playerSelection == "paper"){
         outcome = "Paper beats Rock. Player Wins!";
-        playerWins = true;
+        plyrWins = true;
     }
     else if (computerSelection == "paper" && playerSelection == "scissors"){
         outcome = "Scissors beats Paper. Player Wins!";
-        playerWins = true;
+        plyrWins = true;
     }
     else if (computerSelection == "scissors" && playerSelection == "rock"){
         outcome = "Rock beats Scissors. Player Wins!";
-        playerWins = true;
+        plyrWins = true;
     }
 
     // Returns multiple values as an array so that its easier to receive the two return values
-    return overall = [outcome, playerWins];
+    return overall = [outcome, plyrWins, draw];
 }
 
 
 
 
 
+let computerWins = 0;
+let playerWins = 0;
+
+const pWinDisplay = document.querySelector("#pWinDisplay");
+pWinDisplay.style.display = "inline-block";
+pWinDisplay.style.marginLeft = "5px";
 
 
-// Div to display results
-const resultView = document.querySelector("#results");
-resultView.style.backgroundColor = "pink";
-resultView.style.width = "50%";
-resultView.style.height = "100%";
+const cWinDisplay = document.querySelector("#cWinDisplay");
+cWinDisplay.style.display = "inline-block";
+cWinDisplay.style.marginLeft = "250px";
+
+
+
+const pWins = document.querySelector("#pWins");
+pWins.textContent = playerWins;
+pWinDisplay.appendChild(pWins);
+
+const cWins = document.querySelector("#cWins");
+cWins.textContent = computerWins;
+cWinDisplay.appendChild(cWins);
+
+
 
 
 
 const result = document.querySelector("#resTx");
-result.style.color = "black";
-result.style.textAlign = "center";
+//result.style.color = "black";
+//result.style.textAlign = "center";
 
 
 
@@ -86,6 +103,18 @@ rock.addEventListener('click', function () {
     overall = playRound("rock",computerPlay());
     //alert(overall[0]);
     result.textContent = overall[0];
+
+
+    if (overall[1] == true){
+        playerWins+=1;
+    }
+    else if (overall[1] == false && overall[2] == false){
+        computerWins+=1;
+    }
+
+    pWins.textContent = playerWins;
+    cWins.textContent = computerWins;
+
 });
 
 // Button to choose paper as an option
@@ -94,6 +123,17 @@ paper.addEventListener('click', function() {
     overall = playRound("paper",computerPlay());
     //alert(overall[0]);
     result.textContent = overall[0];
+
+
+    if (overall[1] == true){
+        playerWins+=1;
+    }
+    else if (overall[1] == false && overall[2] == false){
+        computerWins+=1;
+    }
+
+    pWins.textContent = playerWins;
+    cWins.textContent = computerWins;
 });
 
 // Button to choose scissors as an option
@@ -102,7 +142,25 @@ scissors.addEventListener('click', function () {
     overall = playRound("scissors",computerPlay());
     //alert(overall[0]);
     result.textContent = overall[0];
+
+
+    if (overall[1] == true){
+        playerWins+=1;
+    }
+    else if (overall[1] == false && overall[2] == false){
+        computerWins+=1;
+    }
+
+    pWins.textContent = playerWins;
+    cWins.textContent = computerWins;
 });
 
+
+// Div to display results
+const resultView = document.querySelector("#results");
+resultView.style.backgroundColor = "pink";
+resultView.style.width = "60%";
+resultView.style.height = "100%";
+resultView.style.textAlign = "center";
 
 resultView.appendChild(result);
