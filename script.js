@@ -97,14 +97,7 @@ const result = document.querySelector("#resTx");
 
 
 
-// Button to choose rock as an option
-const rock = document.querySelector("#rock");
-rock.addEventListener('click', function () {
-    overall = playRound("rock",computerPlay());
-    //alert(overall[0]);
-    result.textContent = overall[0];
-
-
+function scoreUpdater (overallResult) {
     if (overall[1] == true){
         playerWins+=1;
     }
@@ -114,6 +107,33 @@ rock.addEventListener('click', function () {
 
     pWins.textContent = playerWins;
     cWins.textContent = computerWins;
+
+
+    if (playerWins == 5 || computerWins == 5){
+        if (playerWins == 5){
+            result.textContent = "Player won 5 times. Player Wins!!!"
+        }
+        else {
+            result.textContent = "Computer won 5 times. Computer Wins!!!"
+        }
+
+        playerWins = 0
+        computerWins = 0
+        
+    }
+}
+
+
+
+
+// Button to choose rock as an option
+const rock = document.querySelector("#rock");
+rock.addEventListener('click', function () {
+    overall = playRound("rock",computerPlay());
+    //alert(overall[0]);
+    result.textContent = overall[0];
+    scoreUpdater(overall);
+    //winChecker(playerWins,computerWins);
 
 });
 
@@ -124,16 +144,8 @@ paper.addEventListener('click', function() {
     //alert(overall[0]);
     result.textContent = overall[0];
 
-
-    if (overall[1] == true){
-        playerWins+=1;
-    }
-    else if (overall[1] == false && overall[2] == false){
-        computerWins+=1;
-    }
-
-    pWins.textContent = playerWins;
-    cWins.textContent = computerWins;
+    scoreUpdater(overall);
+    //winChecker(playerWins,computerWins);
 });
 
 // Button to choose scissors as an option
@@ -143,16 +155,8 @@ scissors.addEventListener('click', function () {
     //alert(overall[0]);
     result.textContent = overall[0];
 
-
-    if (overall[1] == true){
-        playerWins+=1;
-    }
-    else if (overall[1] == false && overall[2] == false){
-        computerWins+=1;
-    }
-
-    pWins.textContent = playerWins;
-    cWins.textContent = computerWins;
+    scoreUpdater(overall);
+    //winChecker(playerWins,computerWins);
 });
 
 
